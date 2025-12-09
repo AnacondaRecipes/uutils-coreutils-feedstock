@@ -14,8 +14,13 @@ fi
 
 export C_INCLUDE_PATH="${PREFIX}/include"
 
-ln -s "${BUILD_PREFIX}/bin/aarch64-conda-linux-gnu-gcc" "${BUILD_PREFIX}/bin/aarch64-linux-gnu-gcc"
-export PATH="${BUILD_PREFIX}/bin:${PATH}"
+if [[ "${target_platform}" == "linux-*" ]]; then
+    ln -s "${BUILD_PREFIX}/bin/aarch64-conda-linux-gnu-gcc" "${BUILD_PREFIX}/bin/aarch64-linux-gnu-gcc"
+    export PATH="${BUILD_PREFIX}/bin:${PATH}"
+fi
+
+# Disable SELinux-related utilities to avoid needing libselinux headers
+export SKIP_UTILS="selinux"
 
 cargo build --release --features "${FEATURE_SET}"
 
@@ -26,6 +31,7 @@ make PROFILE=Release \
     PREFIX="${PREFIX}" \
     MULTICALL=y \
     CARGO_TARGET_DIR="$(pwd)/target/${CARGO_BUILD_TARGET}" \
+    SKIP_UTILS='selinux' \
     install
 
 cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
