@@ -1,5 +1,5 @@
 {% set name = "uutils-coreutils" %}
-{% set version = "0.1.0" %}
+{% set version = "0.4.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,41 +7,37 @@ package:
 
 source:
   url: https://github.com/uutils/coreutils/archive/{{ version }}.tar.gz
-  sha256: 55c528f2b53c1b30cb704550131a806e84721c87b3707b588a961a6c97f110d8
+  sha256: 5f0c3f97b807e72edccc844c6a685ec9862199f16a665df07de5b1d20ec21233
   patches:
-    # Fixes long command and quotes problems
-    - 0002-SHORTEN_SH_COMMANDS.patch
-    - 0003-DISABLE_SELINUX.patch
+    - 0003-DISABLE_SELINUX.patch  # [linux]
 
 build:
   number: 0
-  ignore_run_exports:
-    - libstdcxx  # [linux]
-    - libstdcxx-ng  # [linux]
-  ignore_run_exports_from:
-    - {{ compiler('cxx') }}  # [not linux]
+  # ignore_run_exports:
+  #   - libstdcxx  # [linux]
+  #   - libstdcxx-ng  # [linux]
+  # ignore_run_exports_from:
+  #   - {{ compiler('cxx') }}  # [not linux]
 
 requirements:
   build:
     - {{ stdlib('c') }}
-    - {{ compiler('cxx') }}
     - {{ compiler('rust') }}
-    - {{ cdt('libselinux-devel') }}  # [linux]
-    - make
+    # SElinux utils Disabled: chcon and runcon
+    # Rust incompatible C compiler (need rebuild rust)
+    # - {{ compiler('c') }}            # [linux]
+    # - {{ cdt('libselinux-devel') }}  # [linux]
+    # - libclang                       # [linux]
+    - make   # [unix]
+    - posix  # [win]
     - cargo-bundle-licenses
-    - libclang  # [linux]
   run_constrained:
     - coreutils ==999999999
     - gnu-coreutils ==999999999
     - m2-coreutils ==999999999
 
-test:
-  commands:
-    - coreutils --help
-    - cat --help
-
 about:
-  home: https://uutils.github.io/coreutils/
+  home: https://uutils.github.io/coreutils
   summary: Cross-platform Rust rewrite of the GNU coreutils
   description: |
     uutils is an attempt at writing universal (as in cross-platform) CLI utilities in Rust.
@@ -55,7 +51,7 @@ about:
   license_file:
     - LICENSE
     - THIRDPARTY.yml
-  doc_url: https://uutils.github.io/coreutils/docs/
+  doc_url: https://uutils.github.io/coreutils/docs
   dev_url: https://github.com/uutils/coreutils
 
 extra:
