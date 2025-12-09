@@ -19,14 +19,6 @@ if [[ "${target_platform}" == "linux-"* ]]; then
     export PATH="${BUILD_PREFIX}/bin:${PATH}"
 fi
 
-# # Disable SELinux-related utilities to avoid needing libselinux headers
-# export SKIP_UTILS="selinux"
-
-# cargo build --release --features "${FEATURE_SET}"
-
-# Disabled also by patching GNUmakefile
-export SELINUX_ENABLED=0
-
 make PROFILE=Release \
     PREFIX="${PREFIX}" \
     MULTICALL=y \
