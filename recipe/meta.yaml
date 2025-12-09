@@ -13,21 +13,14 @@ source:
 
 build:
   number: 0
-  # ignore_run_exports:
-  #   - libstdcxx  # [linux]
-  #   - libstdcxx-ng  # [linux]
-  # ignore_run_exports_from:
-  #   - {{ compiler('cxx') }}  # [not linux]
 
 requirements:
   build:
     - {{ stdlib('c') }}
     - {{ compiler('rust') }}
-    # SElinux utils Disabled: chcon and runcon
-    # Rust incompatible C compiler (need rebuild rust)
-    # - {{ compiler('c') }}            # [linux]
-    # - {{ cdt('libselinux-devel') }}  # [linux]
-    # - libclang                       # [linux]
+    - {{ compiler('c') }}            # [linux]
+    - {{ cdt('libselinux-devel') }}  # [linux]
+    - libclang                       # [linux]
     - make   # [unix]
     - posix  # [win]
     - cargo-bundle-licenses
