@@ -12,6 +12,11 @@ else
     export LIBCLANG_PATH="${BUILD_PREFIX}/lib"
 fi
 
+if [[ "${target_platform}" == "linux-*" ]]; then
+  export CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER="${CC}"
+  export RUSTFLAGS="${RUSTFLAGS:-} -C linker=${CC}"
+fi
+
 export C_INCLUDE_PATH="${PREFIX}/include"
 
 cargo build --release --features "${FEATURE_SET}"
