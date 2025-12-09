@@ -18,9 +18,9 @@ requirements:
   build:
     - {{ stdlib('c') }}
     - {{ compiler('rust') }}
-    - {{ compiler('c') }}            # [linux]
-    - {{ cdt('libselinux-devel') }}  # [linux]
-    - libclang                       # [linux]
+    # - {{ compiler('c') }}            # [linux]
+    # - {{ cdt('libselinux-devel') }}  # [linux]
+    # - libclang                       # [linux]
     - make   # [unix]
     - posix  # [win]
     - cargo-bundle-licenses

@@ -14,7 +14,9 @@ fi
 
 export C_INCLUDE_PATH="${PREFIX}/include"
 
-export RUSTFLAGS="${RUSTFLAGS:-} -C linker=${CC}"
+ln -s "${BUILD_PREFIX}/bin/aarch64-conda-linux-gnu-gcc" "${BUILD_PREFIX}/bin/aarch64-linux-gnu-gcc"
+export PATH="${BUILD_PREFIX}/bin:${PATH}"
+
 cargo build --release --features "${FEATURE_SET}"
 
 # Disabled also by patching GNUmakefile
