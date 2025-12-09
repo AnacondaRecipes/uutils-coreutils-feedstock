@@ -1,0 +1,13 @@
+diff --git a/GNUmakefile b/GNUmakefile
+index 01b4fd0..f8ea990 100644
+--- a/GNUmakefile
++++ b/GNUmakefile
+@@ -215,8 +215,6 @@ endif
+ 
+ ifneq ($(OS),Windows_NT)
+ 	PROGS := $(PROGS) $(UNIX_PROGS)
+-# Build the selinux command even if not on the system
+-	PROGS := $(PROGS) $(SELINUX_PROGS)
+ endif
+ 
+ UTILS ?= $(filter-out $(SKIP_UTILS),$(PROGS))
