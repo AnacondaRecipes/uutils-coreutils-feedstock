@@ -8,8 +8,8 @@ package:
 source:
   url: https://github.com/uutils/coreutils/archive/{{ version }}.tar.gz
   sha256: 5f0c3f97b807e72edccc844c6a685ec9862199f16a665df07de5b1d20ec21233
-  # patches:
-  #   - 0001-Disable-SElinux.patch  # [linux]
+  patches:
+    - 0001-Disable-SElinux.patch  # [linux]
 
 build:
   number: 0
@@ -19,16 +19,14 @@ requirements:
   build:
     - {{ stdlib('c') }}
     - {{ compiler('rust') }}
-    - {{ compiler('c') }}            # [linux]
     - {{ cdt('libselinux-devel') }}  # [linux]
-    - clangdev                       # [linux]
-    - pcre2                          # [linux]
-    - posix  # [win]
+    - posix                          # [win]
     - cargo-bundle-licenses
   run_constrained:
     - coreutils ==999999999
     - gnu-coreutils ==999999999
-    - m2-coreutils ==999999999
+    - m2-coreutils ==999999999     # [win]
+    - msys2-coreutils ==999999999  # [win]
 
 about:
   home: https://uutils.github.io/coreutils
