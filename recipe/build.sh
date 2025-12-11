@@ -26,7 +26,7 @@ export SELINUX_ENABLED=0
 make PROFILE=Release \
     PREFIX="${PREFIX}" \
     MULTICALL=y \
-    CARGO_TARGET_DIR="$(pwd)/target/${CARGO_BUILD_TARGET}" \
+    CARGO_TARGET_DIR="${SRC_DIR}/target/${CARGO_BUILD_TARGET}" \
     install
 
 cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
