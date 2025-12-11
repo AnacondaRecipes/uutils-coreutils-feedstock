@@ -22,6 +22,7 @@ requirements:
     - {{ compiler('c') }}            # [linux]
     - {{ cdt('libselinux-devel') }}  # [linux]
     - clangdev                       # [linux]
+    - pcre2                          # [linux]
     - posix  # [win]
     - cargo-bundle-licenses
   run_constrained:
