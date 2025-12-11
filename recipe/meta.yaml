@@ -21,7 +21,7 @@ requirements:
     - {{ compiler('rust') }}
     - {{ compiler('c') }}            # [linux]
     - {{ cdt('libselinux-devel') }}  # [linux]
-    - libclang                       # [linux]
+    - clangdev                       # [linux]
     - posix  # [win]
     - cargo-bundle-licenses
   run_constrained:
