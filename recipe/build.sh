@@ -19,6 +19,9 @@ export C_INCLUDE_PATH="${PREFIX}/include"
 #     export PATH="${BUILD_PREFIX}/bin:${PATH}"
 # fi
 
+SYSROOT="${BUILD_PREFIX}/x86_64-conda-linux-gnu/sysroot"
+export LDFLAGS="$LDFLAGS -Wl,-rpath-link,${SYSROOT}/usr/lib64"
+
 # # Disable SELinux-related utilities
 export SKIP_UTILS="selinux"
 export SELINUX_ENABLED=0
