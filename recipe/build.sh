@@ -19,6 +19,10 @@ if [[ "${target_platform}" == "linux-"* ]]; then
     export PATH="${BUILD_PREFIX}/bin:${PATH}"
 fi
 
+# # Disable SELinux-related utilities
+export SKIP_UTILS="selinux"
+export SELINUX_ENABLED=0
+
 make PROFILE=Release \
     PREFIX="${PREFIX}" \
     MULTICALL=y \
