@@ -20,9 +20,7 @@ if [[ "${target_platform}" == "linux-aarch64" ]]; then
 fi
 
 if [[ "${target_platform}" == "linux"* ]]; then
-    export RUSTFLAGS="$RUSTFLAGS \
-    -C link-arg=-L${PREFIX}/lib \
-    -C link-arg=-Wl,-rpath,${PREFIX}/lib
+    export RUSTFLAGS="$RUSTFLAGS -C link-arg=-L${PREFIX}/lib -C link-arg=-Wl,-rpath,${PREFIX}/lib"
 fi
 
 # Disable SELinux-related utilities
