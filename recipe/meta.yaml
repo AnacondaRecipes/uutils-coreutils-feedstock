@@ -8,12 +8,9 @@ package:
 source:
   url: https://github.com/uutils/coreutils/archive/{{ version }}.tar.gz
   sha256: 5f0c3f97b807e72edccc844c6a685ec9862199f16a665df07de5b1d20ec21233
-  # patches:
-  #   - 0001-Disable-SElinux.patch  # [linux]
 
 build:
   number: 0
-  skip: true  # [osx or win]
 
 requirements:
   build:
@@ -25,8 +22,6 @@ requirements:
     - clangdev                       # [linux]
     - posix                          # [win]
     - cargo-bundle-licenses
-  host:
-    - pcre2                          # [linux]
   run_constrained:
     - coreutils ==999999999
     - gnu-coreutils ==999999999

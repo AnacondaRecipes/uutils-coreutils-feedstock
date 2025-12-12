@@ -26,10 +26,6 @@ if [[ "${target_platform}" == "linux"* ]]; then
     -C link-arg=-lpcre2-8"
 fi
 
-# Disable SELinux-related utilities
-# export SKIP_UTILS="selinux"
-# export SELINUX_ENABLED=0
-
 make PROFILE=Release \
     PREFIX="${PREFIX}" \
     MULTICALL=y \
