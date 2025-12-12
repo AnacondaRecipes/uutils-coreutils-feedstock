@@ -20,6 +20,7 @@ requirements:
     - {{ cdt('libselinux-devel') }}  # [linux]
     - clangdev                       # [linux]
     - posix                          # [win]
+    - make                           # [unix]
     - cargo-bundle-licenses
   host:
     - pcre2                          # [linux]
