@@ -14,10 +14,16 @@ fi
 
 export C_INCLUDE_PATH="${PREFIX}/include"
 
-# if [[ "${target_platform}" == "linux-"* ]]; then
-#     ln -s "${BUILD_PREFIX}/bin/aarch64-conda-linux-gnu-gcc" "${BUILD_PREFIX}/bin/aarch64-linux-gnu-gcc"
-#     export PATH="${BUILD_PREFIX}/bin:${PATH}"
-# fi
+if [[ "${target_platform}" == "linux-aarch64" ]]; then
+    ln -s "${BUILD_PREFIX}/bin/aarch64-conda-linux-gnu-gcc" "${BUILD_PREFIX}/bin/aarch64-linux-gnu-gcc"
+    export PATH="${BUILD_PREFIX}/bin:${PATH}"
+fi
+
+if [[ "${target_platform}" == "linux"* ]]; then
+    export RUSTFLAGS="$RUSTFLAGS \
+    -C link-arg=-L${PREFIX}/lib \
+    -C link-arg=-Wl,-rpath,${PREFIX}/lib
+fi
 
 # Disable SELinux-related utilities
 # export SKIP_UTILS="selinux"
