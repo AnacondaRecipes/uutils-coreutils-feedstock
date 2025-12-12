@@ -1,16 +1,35 @@
+#!/usr/bin/env bash
+
 set -ex
 
 FEATURE_SET="unix"
 if [[ "${target_platform}" == "osx"* ]]; then
     FEATURE_SET="macos"
+    export RUSTFLAGS="$RUSTFLAGS -C link-arg=-Wl,-headerpad_max_install_names"
+    export CFLAGS="$CFLAGS -Wl,-headerpad_max_install_names"
+    export LDFLAGS="$LDFLAGS -Wl,-headerpad_max_install_names"
 else
     export LIBCLANG_PATH="${BUILD_PREFIX}/lib"
 fi
 
 export C_INCLUDE_PATH="${PREFIX}/include"
 
-cargo build --release --features "${FEATURE_SET}"
+if [[ "${target_platform}" == "linux-aarch64" ]]; then
+    ln -s "${BUILD_PREFIX}/bin/aarch64-conda-linux-gnu-gcc" "${BUILD_PREFIX}/bin/aarch64-linux-gnu-gcc"
+    export PATH="${BUILD_PREFIX}/bin:${PATH}"
+fi
 
-make PROFILE=Release PREFIX="${PREFIX}" PROG_SUFFIX= MULTICALL=y CARGO_TARGET_DIR="$(pwd)/target/${CARGO_BUILD_TARGET}" install
+if [[ "${target_platform}" == "linux"* ]]; then
+    export RUSTFLAGS="$RUSTFLAGS \
+    -C link-arg=-L${PREFIX}/lib \
+    -C link-arg=-Wl,-rpath,${PREFIX}/lib \
+    -C link-arg=-lpcre2-8"
+fi
+
+make PROFILE=Release \
+    PREFIX="${PREFIX}" \
+    MULTICALL=y \
+    CARGO_TARGET_DIR="${SRC_DIR}/target/${CARGO_BUILD_TARGET}" \
+    install
 
 cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
