@@ -26,7 +26,7 @@ if [[ "${target_platform}" == "linux"* ]]; then
     -C link-arg=-lpcre2-8"
 fi
 
-make PROFILE=Release \
+make PROFILE=release \
     PREFIX="${PREFIX}" \
     MULTICALL=y \
     CARGO_TARGET_DIR="${SRC_DIR}/target/${CARGO_BUILD_TARGET}" \
