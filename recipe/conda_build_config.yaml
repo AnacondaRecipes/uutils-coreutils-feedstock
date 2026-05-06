@@ -1,5 +1,0 @@
-# Rust compiler requires only 11.2.0
-
-c_compiler_version:
-  - 11.2.0                 # [linux] 
-
