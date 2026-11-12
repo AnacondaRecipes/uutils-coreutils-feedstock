@@ -1,5 +1,5 @@
 {% set name = "uutils-coreutils" %}
-{% set version = "0.9.0" %}
+{% set version = "0.12.0" %}
 
 package:
   name: {{ name }}
@@ -7,10 +7,10 @@ package:
 
 source:
   url: https://github.com/uutils/coreutils/archive/{{ version }}.tar.gz
-  sha256: dafe0126ee4ed55c7cd60c6b559f43724a74751deed3c1b078f4f510311acab2
+  sha256: 4fb327655cb4ffcbf2f16550cf9234079ffe839692f7aa1a6eda104af684e122
 
 build:
-  number: 1
+  number: 0
 
 requirements:
   build:
@@ -22,13 +22,12 @@ requirements:
     - posix                          # [win]
     - make                           # [unix]
     - cargo-bundle-licenses
-  host:
-    - pcre2 {{ pcre2 }}            # [linux]
   run_constrained:
     - coreutils ==999999999
     - gnu-coreutils ==999999999
     - m2-coreutils ==999999999     # [win]
     - msys2-coreutils ==999999999  # [win]
+
 
 about:
   home: https://uutils.github.io/coreutils
