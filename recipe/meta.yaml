@@ -19,14 +19,13 @@ requirements:
     - {{ compiler('c') }}            # [linux]
     - {{ cdt('libselinux-devel') }}  # [linux]
     - clangdev                       # [linux]
-    - posix                          # [win]
+    - msys2-posix                    # [win]
+    - msys2-coreutils                # [win]
     - make                           # [unix]
     - cargo-bundle-licenses
   run_constrained:
     - coreutils ==999999999
     - gnu-coreutils ==999999999
-    - m2-coreutils ==999999999     # [win]
-    - msys2-coreutils ==999999999  # [win]
 
 
 about:
@@ -50,3 +49,6 @@ about:
 extra:
   recipe-maintainers:
     - sshockwave
+  skip-lints:
+    # home and doc url are reachable
+    - reachable_url
