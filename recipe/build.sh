@@ -22,8 +22,7 @@ fi
 if [[ "${target_platform}" == "linux"* ]]; then
     export RUSTFLAGS="$RUSTFLAGS \
     -C link-arg=-L${PREFIX}/lib \
-    -C link-arg=-Wl,-rpath,${PREFIX}/lib \
-    -C link-arg=-lpcre2-8"
+    -C link-arg=-Wl,-rpath,${PREFIX}/lib"
 fi
 
 make PROFILE=release \
