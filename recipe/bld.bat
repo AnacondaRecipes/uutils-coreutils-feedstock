@@ -28,12 +28,16 @@ if errorlevel 1 (
     exit /b 1
 )
 
+@REM Install only the multicall coreutils.exe (UTILS= disables the per-utility
+@REM aliases, which are 12 MB hardlinks packaged as full copies each, ~350 MB total).
+@REM Utilities stay available as `coreutils <util>`.
 @REM echo [bld.bat] Running: make install
 set "UNIX_PREFIX=%LIBRARY_PREFIX:\=/%"
 make PROFILE=Release ^
      PREFIX="%UNIX_PREFIX%" ^
      MULTICALL=y ^
      PROG_SUFFIX=.exe ^
+     UTILS= ^
      CARGO=true ^
      MANPAGES=n ^
      COMPLETIONS=n ^
